@@ -1,0 +1,58 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Auto Updater",
+        "description": "Configure automatic updates for Supervisor Addons and HACS repositories.",
+        "data": {
+          "update_addons": "Auto-update Supervisor Addons",
+          "update_hacs": "Auto-update HACS repositories",
+          "schedule_time": "Daily update time (HH:MM, 24-hour)",
+          "notify_service": "Notify service (optional, e.g. notify.mobile_app)",
+          "auto_backup": "Create full backup before updating",
+          "ignored_addons": "Ignored Addons (comma-separated slugs)",
+          "ignored_hacs": "Ignored HACS repos (comma-separated slugs)"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Only a single instance of Auto Updater is allowed."
+    },
+    "error": {
+      "invalid_time": "Time must be in HH:MM format (e.g. 03:00)."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Auto Updater Options",
+        "data": {
+          "update_addons": "Auto-update Supervisor Addons",
+          "update_hacs": "Auto-update HACS repositories",
+          "schedule_time": "Daily update time (HH:MM, 24-hour)",
+          "notify_service": "Notify service (optional)",
+          "auto_backup": "Create full backup before updating",
+          "ignored_addons": "Ignored Addons (comma-separated slugs)",
+          "ignored_hacs": "Ignored HACS repos (comma-separated slugs)"
+        }
+      }
+    },
+    "error": {
+      "invalid_time": "Time must be in HH:MM format (e.g. 03:00)."
+    }
+  },
+  "services": {
+    "update_all": {
+      "name": "Update All",
+      "description": "Install all available Addon and HACS updates immediately."
+    },
+    "update_addons": {
+      "name": "Update Addons",
+      "description": "Install all available Supervisor Addon updates immediately."
+    },
+    "update_hacs": {
+      "name": "Update HACS",
+      "description": "Install all available HACS repository updates immediately."
+    }
+  }
+}

@@ -1,0 +1,57 @@
+update_all:
+  name: Update All
+  description: >
+    Install all available updates for Supervisor Addons and HACS repositories right now.
+  fields:
+    ignored_addons:
+      name: Ignored Addons
+      description: List of Addon slugs to skip (e.g. ["mosquitto", "node_red"]).
+      example: ["mosquitto", "node_red"]
+      selector:
+        object:
+    ignored_hacs:
+      name: Ignored HACS repos
+      description: List of HACS repository slugs to skip.
+      example: ["lovelace-mushroom"]
+      selector:
+        object:
+    auto_backup:
+      name: Auto Backup
+      description: Create a full backup before running updates.
+      default: false
+      selector:
+        boolean:
+
+update_addons:
+  name: Update Addons
+  description: Install all available Supervisor Addon updates right now.
+  fields:
+    ignored_addons:
+      name: Ignored Addons
+      description: List of Addon slugs to skip.
+      example: ["mosquitto"]
+      selector:
+        object:
+    auto_backup:
+      name: Auto Backup
+      description: Create a full backup before running updates.
+      default: false
+      selector:
+        boolean:
+
+update_hacs:
+  name: Update HACS
+  description: Install all available HACS repository updates right now.
+  fields:
+    ignored_hacs:
+      name: Ignored HACS repos
+      description: List of HACS repository slugs to skip.
+      example: ["lovelace-mushroom"]
+      selector:
+        object:
+    auto_backup:
+      name: Auto Backup
+      description: Create a full backup before running updates.
+      default: false
+      selector:
+        boolean:

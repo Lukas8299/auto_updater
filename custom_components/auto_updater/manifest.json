@@ -1,0 +1,12 @@
+{
+  "domain": "auto_updater",
+  "name": "Auto Updater",
+  "version": "1.0.0",
+  "documentation": "https://github.com/your-repo/auto_updater",
+  "dependencies": [],
+  "after_dependencies": ["hassio", "hacs"],
+  "codeowners": [],
+  "requirements": [],
+  "iot_class": "local_polling",
+  "config_flow": true
+}
