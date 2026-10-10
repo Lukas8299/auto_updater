@@ -1,0 +1,90 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Auto Updater",
+        "description": "Install HACS and add-on updates automatically on a daily schedule.",
+        "data": {
+          "update_addons": "Update Supervisor add-ons",
+          "update_hacs": "Update HACS repositories",
+          "schedule_time": "Daily update time",
+          "cooldown_days": "Waiting period for new versions",
+          "restart_after_integration_update": "Restart after integration updates",
+          "auto_backup": "Create a backup before updating",
+          "update_core": "Also update Core, Supervisor and OS",
+          "notify_service": "Notify service (optional)",
+          "ignored_addons": "Ignored add-ons",
+          "ignored_hacs": "Ignored HACS repositories"
+        },
+        "data_description": {
+          "update_addons": "Only shown with a Supervisor (Home Assistant OS or Supervised).",
+          "update_hacs": "Integrations, dashboard cards and themes installed via HACS.",
+          "schedule_time": "Updates run once a day at this time.",
+          "cooldown_days": "A new add-on or HACS version is installed only after it has been offered for this many days. Catches withdrawn or broken releases. 0 installs immediately.",
+          "restart_after_integration_update": "Restart Home Assistant when a HACS integration was updated, so the new code is loaded. Cards and themes never need a restart.",
+          "auto_backup": "Uses the automatic backup of Home Assistant (Settings → System → Backups). If the backup fails, no updates are installed.",
+          "update_core": "At most one of them per run, as the last step, because each restarts Home Assistant or the host.",
+          "notify_service": "For example notify.mobile_app_my_phone. Every run with changes is also reported as a persistent notification.",
+          "ignored_addons": "These add-on updates are never installed automatically.",
+          "ignored_hacs": "These HACS updates are never installed automatically."
+        }
+      }
+    },
+    "error": {
+      "invalid_notify_service": "Use the form domain.service, for example notify.mobile_app_my_phone.",
+      "unknown_notify_service": "This service does not exist."
+    },
+    "abort": {
+      "single_instance_allowed": "Auto Updater is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Auto Updater options",
+        "data": {
+          "update_addons": "Update Supervisor add-ons",
+          "update_hacs": "Update HACS repositories",
+          "schedule_time": "Daily update time",
+          "cooldown_days": "Waiting period for new versions",
+          "restart_after_integration_update": "Restart after integration updates",
+          "auto_backup": "Create a backup before updating",
+          "update_core": "Also update Core, Supervisor and OS",
+          "notify_service": "Notify service (optional)",
+          "ignored_addons": "Ignored add-ons",
+          "ignored_hacs": "Ignored HACS repositories"
+        },
+        "data_description": {
+          "update_addons": "Only shown with a Supervisor (Home Assistant OS or Supervised).",
+          "update_hacs": "Integrations, dashboard cards and themes installed via HACS.",
+          "schedule_time": "Updates run once a day at this time.",
+          "cooldown_days": "A new add-on or HACS version is installed only after it has been offered for this many days. Catches withdrawn or broken releases. 0 installs immediately.",
+          "restart_after_integration_update": "Restart Home Assistant when a HACS integration was updated, so the new code is loaded. Cards and themes never need a restart.",
+          "auto_backup": "Uses the automatic backup of Home Assistant (Settings → System → Backups). If the backup fails, no updates are installed.",
+          "update_core": "At most one of them per run, as the last step, because each restarts Home Assistant or the host.",
+          "notify_service": "For example notify.mobile_app_my_phone. Every run with changes is also reported as a persistent notification.",
+          "ignored_addons": "These add-on updates are never installed automatically.",
+          "ignored_hacs": "These HACS updates are never installed automatically."
+        }
+      }
+    },
+    "error": {
+      "invalid_notify_service": "Use the form domain.service, for example notify.mobile_app_my_phone.",
+      "unknown_notify_service": "This service does not exist."
+    }
+  },
+  "services": {
+    "update_all": {
+      "name": "Update all",
+      "description": "Install all pending add-on and HACS updates now."
+    },
+    "update_addons": {
+      "name": "Update add-ons",
+      "description": "Install all pending Supervisor add-on updates now."
+    },
+    "update_hacs": {
+      "name": "Update HACS",
+      "description": "Install all pending HACS updates now."
+    }
+  }
+}

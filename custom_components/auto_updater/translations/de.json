@@ -1,0 +1,90 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Auto Updater",
+        "description": "Installiert HACS- und Add-on-Updates automatisch nach einem täglichen Zeitplan.",
+        "data": {
+          "update_addons": "Supervisor-Add-ons aktualisieren",
+          "update_hacs": "HACS-Repositories aktualisieren",
+          "schedule_time": "Tägliche Uhrzeit",
+          "cooldown_days": "Wartezeit für neue Versionen",
+          "restart_after_integration_update": "Nach Integrations-Updates neu starten",
+          "auto_backup": "Vor den Updates ein Backup erstellen",
+          "update_core": "Auch Core, Supervisor und OS aktualisieren",
+          "notify_service": "Benachrichtigungsdienst (optional)",
+          "ignored_addons": "Ausgeschlossene Add-ons",
+          "ignored_hacs": "Ausgeschlossene HACS-Repositories"
+        },
+        "data_description": {
+          "update_addons": "Nur sichtbar mit Supervisor (Home Assistant OS oder Supervised).",
+          "update_hacs": "Über HACS installierte Integrationen, Dashboard-Karten und Themes.",
+          "schedule_time": "Die Updates laufen einmal am Tag zu dieser Uhrzeit.",
+          "cooldown_days": "Eine neue Add-on- oder HACS-Version wird erst installiert, wenn sie seit so vielen Tagen angeboten wird. Fängt zurückgezogene oder fehlerhafte Releases ab. 0 installiert sofort.",
+          "restart_after_integration_update": "Startet Home Assistant neu, wenn eine HACS-Integration aktualisiert wurde, damit der neue Code geladen wird. Karten und Themes brauchen nie einen Neustart.",
+          "auto_backup": "Nutzt das automatische Backup von Home Assistant (Einstellungen → System → Backups). Schlägt das Backup fehl, wird nichts aktualisiert.",
+          "update_core": "Höchstens eines davon pro Lauf, als letzter Schritt, weil jedes Home Assistant oder den Host neu startet.",
+          "notify_service": "Zum Beispiel notify.mobile_app_mein_handy. Jeder Lauf mit Änderungen erscheint außerdem als dauerhafte Benachrichtigung.",
+          "ignored_addons": "Diese Add-on-Updates werden nie automatisch installiert.",
+          "ignored_hacs": "Diese HACS-Updates werden nie automatisch installiert."
+        }
+      }
+    },
+    "error": {
+      "invalid_notify_service": "Bitte in der Form domain.dienst angeben, zum Beispiel notify.mobile_app_mein_handy.",
+      "unknown_notify_service": "Diesen Dienst gibt es nicht."
+    },
+    "abort": {
+      "single_instance_allowed": "Auto Updater ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Auto-Updater-Optionen",
+        "data": {
+          "update_addons": "Supervisor-Add-ons aktualisieren",
+          "update_hacs": "HACS-Repositories aktualisieren",
+          "schedule_time": "Tägliche Uhrzeit",
+          "cooldown_days": "Wartezeit für neue Versionen",
+          "restart_after_integration_update": "Nach Integrations-Updates neu starten",
+          "auto_backup": "Vor den Updates ein Backup erstellen",
+          "update_core": "Auch Core, Supervisor und OS aktualisieren",
+          "notify_service": "Benachrichtigungsdienst (optional)",
+          "ignored_addons": "Ausgeschlossene Add-ons",
+          "ignored_hacs": "Ausgeschlossene HACS-Repositories"
+        },
+        "data_description": {
+          "update_addons": "Nur sichtbar mit Supervisor (Home Assistant OS oder Supervised).",
+          "update_hacs": "Über HACS installierte Integrationen, Dashboard-Karten und Themes.",
+          "schedule_time": "Die Updates laufen einmal am Tag zu dieser Uhrzeit.",
+          "cooldown_days": "Eine neue Add-on- oder HACS-Version wird erst installiert, wenn sie seit so vielen Tagen angeboten wird. Fängt zurückgezogene oder fehlerhafte Releases ab. 0 installiert sofort.",
+          "restart_after_integration_update": "Startet Home Assistant neu, wenn eine HACS-Integration aktualisiert wurde, damit der neue Code geladen wird. Karten und Themes brauchen nie einen Neustart.",
+          "auto_backup": "Nutzt das automatische Backup von Home Assistant (Einstellungen → System → Backups). Schlägt das Backup fehl, wird nichts aktualisiert.",
+          "update_core": "Höchstens eines davon pro Lauf, als letzter Schritt, weil jedes Home Assistant oder den Host neu startet.",
+          "notify_service": "Zum Beispiel notify.mobile_app_mein_handy. Jeder Lauf mit Änderungen erscheint außerdem als dauerhafte Benachrichtigung.",
+          "ignored_addons": "Diese Add-on-Updates werden nie automatisch installiert.",
+          "ignored_hacs": "Diese HACS-Updates werden nie automatisch installiert."
+        }
+      }
+    },
+    "error": {
+      "invalid_notify_service": "Bitte in der Form domain.dienst angeben, zum Beispiel notify.mobile_app_mein_handy.",
+      "unknown_notify_service": "Diesen Dienst gibt es nicht."
+    }
+  },
+  "services": {
+    "update_all": {
+      "name": "Alles aktualisieren",
+      "description": "Installiert jetzt alle ausstehenden Add-on- und HACS-Updates."
+    },
+    "update_addons": {
+      "name": "Add-ons aktualisieren",
+      "description": "Installiert jetzt alle ausstehenden Supervisor-Add-on-Updates."
+    },
+    "update_hacs": {
+      "name": "HACS aktualisieren",
+      "description": "Installiert jetzt alle ausstehenden HACS-Updates."
+    }
+  }
+}

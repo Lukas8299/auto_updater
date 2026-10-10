@@ -9,16 +9,29 @@ CONF_UPDATE_CORE = "update_core"
 CONF_SCHEDULE_TIME = "schedule_time"
 CONF_NOTIFY_SERVICE = "notify_service"
 CONF_AUTO_BACKUP = "auto_backup"
-CONF_IGNORED_ADDONS = "ignored_addons"
-CONF_IGNORED_HACS = "ignored_hacs"
+CONF_IGNORED_ADDONS = "ignored_addons"  # list of update entity IDs (since v2)
+CONF_IGNORED_HACS = "ignored_hacs"  # list of update entity IDs (since v2)
+CONF_COOLDOWN_DAYS = "cooldown_days"
+CONF_RESTART_AFTER_UPDATE = "restart_after_integration_update"
 
 # Defaults
 DEFAULT_UPDATE_ADDONS = True
 DEFAULT_UPDATE_HACS = True
 DEFAULT_UPDATE_CORE = False  # opt-in only — triggers HA restart
-DEFAULT_SCHEDULE_TIME = "03:00"
+DEFAULT_SCHEDULE_TIME = "03:00:00"
 DEFAULT_NOTIFY_SERVICE = ""
 DEFAULT_AUTO_BACKUP = False
+# A new version must have been offered for this many days before it is
+# installed automatically (HACS and add-ons). 0 disables the delay.
+DEFAULT_COOLDOWN_DAYS = 3
+DEFAULT_RESTART_AFTER_UPDATE = True
+
+MAX_COOLDOWN_DAYS = 30
+
+# Config entry version history:
+#   1 – ignore lists were comma-separated substrings matched against entity IDs
+#   2 – ignore lists are exact update entity IDs; cooldown and restart options
+CONFIG_ENTRY_VERSION = 2
 
 # Well-known entity IDs for system-level updates (hassio platform).
 # These must be processed last and are excluded from addon updates unless
