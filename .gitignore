@@ -33,3 +33,7 @@ coverage.xml
 *.log
 home-assistant_v2.db
 home-assistant.log
+
+# Claude Code (lokale Einstellungen, nicht ausliefern)
+.claude/settings.local.json
+**/.claude/settings.local.json

@@ -1,12 +1,18 @@
 {
   "domain": "auto_updater",
   "name": "Auto Updater",
-  "version": "1.0.0",
-  "documentation": "https://github.com/your-repo/auto_updater",
+  "after_dependencies": [
+    "hassio",
+    "hacs"
+  ],
+  "codeowners": [
+    "@Lukas8299"
+  ],
+  "config_flow": true,
   "dependencies": [],
-  "after_dependencies": ["hassio", "hacs"],
-  "codeowners": [],
-  "requirements": [],
+  "documentation": "https://github.com/Lukas8299/auto_updater",
   "iot_class": "local_polling",
-  "config_flow": true
+  "issue_tracker": "https://github.com/Lukas8299/auto_updater/issues",
+  "requirements": [],
+  "version": "1.0.0"
 }
