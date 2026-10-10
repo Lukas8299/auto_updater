@@ -1,56 +1,47 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
-## Project Overview
+## Project
 
-This is a Home Assistant custom integration (HACS-compatible) that automatically installs Supervisor Addon and HACS updates on a configurable schedule, with optional pre-update backups and notifications.
+Home Assistant custom integration (HACS) that installs HACS and Supervisor add-on updates on a daily schedule. Source of truth is the Forgejo repo `lukas/auto_updater`; GitHub `Lukas8299/auto_updater` is a push mirror because HACS only installs from GitHub. Create GitHub releases for new tags, HACS offers versions from releases.
 
-## Development Setup
+## Commands
 
-No build system is required. This is a pure Python Home Assistant integration. To develop and test:
+```bash
+.venv/bin/pytest                      # tests (pytest-homeassistant-custom-component)
+podman run --rm -v "$PWD/custom_components:/github/workspace/custom_components:ro" \
+  ghcr.io/home-assistant/hassfest     # manifest, translations, services
+```
 
-1. Copy/symlink `custom_components/auto_updater/` into a Home Assistant instance's `custom_components/` directory.
-2. Restart Home Assistant and add the integration via the UI.
-3. There are no automated tests — test by running the integration in a real or development Home Assistant instance.
-
-For linting, use `pylint` or `flake8` with Home Assistant's coding style. No configuration files are present, so use defaults.
+Set up the venv with `python3 -m venv .venv && .venv/bin/pip install -r requirements_test.txt`. The pinned test package defines the Home Assistant version tests run against.
 
 ## Architecture
 
-The integration follows Home Assistant's standard `DataUpdateCoordinator` pattern:
-
 ```
-__init__.py          → Entry point: sets up coordinator, scheduler, and services
-coordinator.py       → Core logic: update discovery and installation
-config_flow.py       → UI setup and options flows (initial config + reconfiguration)
-const.py             → All constants, config keys, and defaults
+__init__.py      setup, schedule, services (registered in async_setup), v1→v2 migration, report
+coordinator.py   discovery, waiting period, run logic, persistence (.storage/auto_updater.state)
+config_flow.py   setup and options flow (shared schema)
+sensor.py        pending updates, last run
+const.py         config keys and defaults
+translations/    en.json, de.json (custom integrations do not read strings.json)
 ```
 
-### Key Workflows
+- `RunOptions.from_config()` turns the entry config into what a run may do; services start from it and override single fields.
+- A run: refresh → filter (disabled, ignored, waiting, one system update) → optional backup (abort on failure) → install HACS, add-ons, then the system update → restart if an integration was updated.
+- The result is saved before a system update, because it may restart HA before the call returns; such a run is shown as `interrupted` after the restart.
+- HACS category comes from the device model HACS sets (`integration`, `plugin`, `theme`). Unknown category counts as integration (restart to be safe).
 
-**Update Discovery** (`coordinator._async_update_data`):
-- Queries HA's entity registry for all `update` domain entities
-- Categorizes into addons (hassio platform), HACS repos, and system (Core/Supervisor/OS)
-- Runs hourly, but installs only at the scheduled time
+## Decisions (2026-10, v2.0.0)
 
-**Update Installation** (`coordinator.async_run_updates`):
-- Executes in safe order to avoid mid-run restarts:
-  1. HACS repositories (no restart)
-  2. Supervisor Addons
-  3. Supervisor
-  4. HA Core
-  5. HA OS (last — reboots host)
-- 2-second pause between installs
-- Auto-triggers HA restart after HACS updates if no Core update follows
-- Optionally creates a full Supervisor backup before updating (300s timeout)
+- Backup via `backup.create_automatic` (works without Supervisor), not the Supervisor REST API. Minimum HA 2025.1.
+- Waiting period default 3 days, for HACS and add-ons, not for Core/Supervisor/OS.
+- Restart after updates is an option, on by default, only for integrations.
+- Ignore lists are exact update entity IDs (entity picker), not substrings.
+- No CI; run tests and hassfest locally before releasing.
 
-**Scheduling** (`__init__.async_setup_entry`):
-- Uses `async_track_time_change` for daily triggers at the configured time (default 03:00)
-- Three services registered: `update_all`, `update_addons`, `update_hacs`
+## Rules
 
-### Supervisor API
-Backup creation hits the Supervisor REST API using the `SUPERVISOR_TOKEN` environment variable as a bearer token. Endpoint: `http://supervisor/backups/new/full`.
-
-### Configuration
-Stored in a Home Assistant config entry. Key constants are in `const.py`. The config flow (`config_flow.py`) validates HH:MM time format and parses comma-separated ignore lists into Python lists.
+- Keep `manifest.json` keys in hassfest order: `domain`, `name`, then alphabetical.
+- Every user-visible string goes into both `translations/en.json` and `de.json`.
+- Every behaviour change needs a test; check that the test fails when the behaviour is broken.
