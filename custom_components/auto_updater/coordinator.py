@@ -234,7 +234,7 @@ class AutoUpdaterCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             await self._async_save()
         return {"pending": [asdict(c) for c in candidates]}
 
-    def _waiting_until(self, cand: Candidate, cooldown_days: int) -> datetime | None:
+    def waiting_until(self, cand: Candidate, cooldown_days: int) -> datetime | None:
         """Return when the cooldown for this version ends, or None if it has."""
         if cooldown_days <= 0 or cand.kind == KIND_SYSTEM:
             return None
@@ -299,7 +299,7 @@ class AutoUpdaterCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             if cand.entity_id in options.ignored:
                 result.skipped.append(_skip(cand, SKIP_IGNORED))
                 continue
-            until = self._waiting_until(cand, options.cooldown_days)
+            until = self.waiting_until(cand, options.cooldown_days)
             if until is not None:
                 result.skipped.append(_skip(cand, SKIP_WAITING, until=until.isoformat()))
                 continue

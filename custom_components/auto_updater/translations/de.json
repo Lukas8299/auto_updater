@@ -149,5 +149,24 @@
     "not_loaded": {
       "message": "Auto Updater ist nicht eingerichtet oder nicht geladen."
     }
+  },
+  "entity": {
+    "sensor": {
+      "pending_updates": {
+        "name": "Ausstehende Updates"
+      },
+      "last_run": {
+        "name": "Letzter Lauf",
+        "state": {
+          "success": "Erfolgreich",
+          "partial": "Teilweise fehlgeschlagen",
+          "failed": "Fehlgeschlagen",
+          "no_updates": "Keine Updates",
+          "backup_failed": "Backup fehlgeschlagen",
+          "interrupted": "Unterbrochen",
+          "running": "Läuft"
+        }
+      }
+    }
   }
 }

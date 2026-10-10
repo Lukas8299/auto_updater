@@ -56,7 +56,7 @@ from .coordinator import (
 _LOGGER = logging.getLogger(__name__)
 
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
-PLATFORMS: list[Platform] = []
+PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 ATTR_IGNORE_WAITING_PERIOD = "ignore_waiting_period"
 ATTR_ADDITIONAL_IGNORED = "additional_ignored"
