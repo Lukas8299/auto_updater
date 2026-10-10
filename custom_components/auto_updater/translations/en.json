@@ -76,15 +76,78 @@
   "services": {
     "update_all": {
       "name": "Update all",
-      "description": "Install all pending add-on and HACS updates now."
+      "description": "Install pending HACS and add-on updates now, with the configured ignore lists and waiting period.",
+      "fields": {
+        "update_core": {
+          "name": "Also update Core, Supervisor or OS",
+          "description": "At most one per run, as the last step. Default: off."
+        },
+        "auto_backup": {
+          "name": "Create a backup first",
+          "description": "Default: as configured."
+        },
+        "restart_after_integration_update": {
+          "name": "Restart after integration updates",
+          "description": "Default: as configured."
+        },
+        "ignore_waiting_period": {
+          "name": "Ignore the waiting period",
+          "description": "Install new versions even if they were offered only recently."
+        },
+        "additional_ignored": {
+          "name": "Also skip",
+          "description": "Skip these updates in this run, in addition to the configured ones."
+        }
+      }
     },
     "update_addons": {
       "name": "Update add-ons",
-      "description": "Install all pending Supervisor add-on updates now."
+      "description": "Install pending Supervisor add-on updates now, with the configured ignore list and waiting period.",
+      "fields": {
+        "update_core": {
+          "name": "Also update Core, Supervisor or OS",
+          "description": "At most one per run, as the last step. Default: off."
+        },
+        "auto_backup": {
+          "name": "Create a backup first",
+          "description": "Default: as configured."
+        },
+        "ignore_waiting_period": {
+          "name": "Ignore the waiting period",
+          "description": "Install new versions even if they were offered only recently."
+        },
+        "additional_ignored": {
+          "name": "Also skip",
+          "description": "Skip these updates in this run, in addition to the configured ones."
+        }
+      }
     },
     "update_hacs": {
       "name": "Update HACS",
-      "description": "Install all pending HACS updates now."
+      "description": "Install pending HACS updates now, with the configured ignore list and waiting period.",
+      "fields": {
+        "auto_backup": {
+          "name": "Create a backup first",
+          "description": "Default: as configured."
+        },
+        "restart_after_integration_update": {
+          "name": "Restart after integration updates",
+          "description": "Default: as configured."
+        },
+        "ignore_waiting_period": {
+          "name": "Ignore the waiting period",
+          "description": "Install new versions even if they were offered only recently."
+        },
+        "additional_ignored": {
+          "name": "Also skip",
+          "description": "Skip these updates in this run, in addition to the configured ones."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "not_loaded": {
+      "message": "Auto Updater is not set up or not loaded."
     }
   }
 }

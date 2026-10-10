@@ -76,15 +76,78 @@
   "services": {
     "update_all": {
       "name": "Alles aktualisieren",
-      "description": "Installiert jetzt alle ausstehenden Add-on- und HACS-Updates."
+      "description": "Installiert jetzt ausstehende HACS- und Add-on-Updates, mit den konfigurierten Ausschlüssen und der Wartezeit.",
+      "fields": {
+        "update_core": {
+          "name": "Auch Core, Supervisor oder OS aktualisieren",
+          "description": "Höchstens eines pro Lauf, als letzter Schritt. Standard: aus."
+        },
+        "auto_backup": {
+          "name": "Vorher ein Backup erstellen",
+          "description": "Standard: wie konfiguriert."
+        },
+        "restart_after_integration_update": {
+          "name": "Nach Integrations-Updates neu starten",
+          "description": "Standard: wie konfiguriert."
+        },
+        "ignore_waiting_period": {
+          "name": "Wartezeit ignorieren",
+          "description": "Neue Versionen auch dann installieren, wenn sie erst seit Kurzem angeboten werden."
+        },
+        "additional_ignored": {
+          "name": "Zusätzlich auslassen",
+          "description": "Diese Updates in diesem Lauf zusätzlich zu den konfigurierten auslassen."
+        }
+      }
     },
     "update_addons": {
       "name": "Add-ons aktualisieren",
-      "description": "Installiert jetzt alle ausstehenden Supervisor-Add-on-Updates."
+      "description": "Installiert jetzt ausstehende Supervisor-Add-on-Updates, mit den konfigurierten Ausschlüssen und der Wartezeit.",
+      "fields": {
+        "update_core": {
+          "name": "Auch Core, Supervisor oder OS aktualisieren",
+          "description": "Höchstens eines pro Lauf, als letzter Schritt. Standard: aus."
+        },
+        "auto_backup": {
+          "name": "Vorher ein Backup erstellen",
+          "description": "Standard: wie konfiguriert."
+        },
+        "ignore_waiting_period": {
+          "name": "Wartezeit ignorieren",
+          "description": "Neue Versionen auch dann installieren, wenn sie erst seit Kurzem angeboten werden."
+        },
+        "additional_ignored": {
+          "name": "Zusätzlich auslassen",
+          "description": "Diese Updates in diesem Lauf zusätzlich zu den konfigurierten auslassen."
+        }
+      }
     },
     "update_hacs": {
       "name": "HACS aktualisieren",
-      "description": "Installiert jetzt alle ausstehenden HACS-Updates."
+      "description": "Installiert jetzt ausstehende HACS-Updates, mit den konfigurierten Ausschlüssen und der Wartezeit.",
+      "fields": {
+        "auto_backup": {
+          "name": "Vorher ein Backup erstellen",
+          "description": "Standard: wie konfiguriert."
+        },
+        "restart_after_integration_update": {
+          "name": "Nach Integrations-Updates neu starten",
+          "description": "Standard: wie konfiguriert."
+        },
+        "ignore_waiting_period": {
+          "name": "Wartezeit ignorieren",
+          "description": "Neue Versionen auch dann installieren, wenn sie erst seit Kurzem angeboten werden."
+        },
+        "additional_ignored": {
+          "name": "Zusätzlich auslassen",
+          "description": "Diese Updates in diesem Lauf zusätzlich zu den konfigurierten auslassen."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "not_loaded": {
+      "message": "Auto Updater ist nicht eingerichtet oder nicht geladen."
     }
   }
 }

@@ -9,7 +9,9 @@
     "@Lukas8299"
   ],
   "config_flow": true,
-  "dependencies": [],
+  "dependencies": [
+    "persistent_notification"
+  ],
   "documentation": "https://github.com/Lukas8299/auto_updater",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/Lukas8299/auto_updater/issues",
