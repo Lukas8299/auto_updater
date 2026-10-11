@@ -4,7 +4,16 @@ Guidance for Claude Code when working in this repository.
 
 ## Project
 
-Home Assistant custom integration (HACS) that installs HACS and Supervisor add-on updates on a daily schedule. Source of truth is the Forgejo repo `lukas/auto_updater`; GitHub `Lukas8299/auto_updater` is a push mirror because HACS only installs from GitHub. Create GitHub releases for new tags, HACS offers versions from releases.
+Home Assistant custom integration (HACS) that installs HACS and Supervisor add-on updates on a daily schedule. Source of truth is the Forgejo repo `lukas/auto_updater` (remote `origin`); GitHub `Lukas8299/auto_updater` (remote `github`) is a push mirror because HACS only installs from GitHub. Always push to `origin`; the mirror brings commits and tags to GitHub within seconds.
+
+## Releasing
+
+1. Run the tests and hassfest (see Commands).
+2. Bump `version` in `manifest.json`, commit, tag `vX.Y.Z`, push branch and tag to `origin`.
+3. Create a **Forgejo release** for the tag. HAIGS (a HACS-like store for self-hosted forges) finds the repo through its topics `hacs` and `hacs-integration` and offers versions from releases.
+4. Create a **GitHub release** for the mirrored tag: `gh release create vX.Y.Z --repo Lukas8299/auto_updater --verify-tag`. HACS offers versions from GitHub releases.
+
+Releases are not mirrored, so both are needed. Do not install the integration through HAIGS and HACS at the same time; both write to `custom_components/auto_updater/`.
 
 ## Commands
 
