@@ -32,7 +32,7 @@ from .const import (
     DEFAULT_UPDATE_CORE,
     DEFAULT_UPDATE_HACS,
     DOMAIN,
-    PLATFORM_HACS,
+    PLATFORMS_HACS,
     PLATFORM_HASSIO,
     SYSTEM_UPDATE_ENTITIES,
 )
@@ -177,7 +177,7 @@ class AutoUpdaterCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 continue
             # Only HACS and Supervisor updates. Device firmware (ESPHome, ZHA,
             # Z-Wave, Matter, ...) is never touched.
-            if entry.platform == PLATFORM_HACS:
+            if entry.platform in PLATFORMS_HACS:
                 kind = KIND_HACS
             elif entry.platform == PLATFORM_HASSIO:
                 kind = KIND_SYSTEM if entry.entity_id in SYSTEM_UPDATE_ENTITIES else KIND_ADDON

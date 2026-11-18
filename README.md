@@ -18,7 +18,7 @@ A Home Assistant custom integration that installs HACS and Supervisor add-on upd
 ## Requirements
 
 - Home Assistant **2025.1** or newer
-- HACS for HACS updates
+- HACS, or the Marketplace integration that ships HACS with Home Assistant, for HACS updates
 - Add-on, Core, Supervisor and OS updates need a Supervisor (Home Assistant OS or Supervised). On Container and Core installations these options are hidden; HACS updates and the backup work everywhere.
 - For the backup: automatic backups must be set up under **Settings → System → Backups** (at least one backup location).
 

@@ -48,7 +48,9 @@ SYSTEM_UPDATE_ENTITIES = (
 
 # Platforms that expose update entities
 PLATFORM_HASSIO = "hassio"
-PLATFORM_HACS = "hacs"
+# Home Assistant ships HACS as the core integration "marketplace"; older
+# installs still run HACS as custom integration "hacs".
+PLATFORMS_HACS = ("hacs", "marketplace")
 
 # Services
 SERVICE_UPDATE_ALL = "update_all"

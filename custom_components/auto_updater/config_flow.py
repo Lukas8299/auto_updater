@@ -37,7 +37,7 @@ from .const import (
     DEFAULT_UPDATE_HACS,
     DOMAIN,
     MAX_COOLDOWN_DAYS,
-    PLATFORM_HACS,
+    PLATFORMS_HACS,
     PLATFORM_HASSIO,
 )
 
@@ -103,7 +103,10 @@ def _options_schema(hass: HomeAssistant, defaults: dict[str, Any]) -> vol.Schema
     fields[
         vol.Optional(CONF_IGNORED_HACS, default=default(CONF_IGNORED_HACS, []))
     ] = selector.EntitySelector(
-        selector.EntitySelectorConfig(domain="update", integration=PLATFORM_HACS, multiple=True)
+        selector.EntitySelectorConfig(
+            filter=[{"domain": "update", "integration": p} for p in PLATFORMS_HACS],
+            multiple=True,
+        )
     )
     return vol.Schema(fields)
 

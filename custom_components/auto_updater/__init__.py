@@ -38,7 +38,7 @@ from .const import (
     DEFAULT_RESTART_AFTER_UPDATE,
     DEFAULT_SCHEDULE_TIME,
     DOMAIN,
-    PLATFORM_HACS,
+    PLATFORMS_HACS,
     PLATFORM_HASSIO,
     SERVICE_UPDATE_ADDONS,
     SERVICE_UPDATE_ALL,
@@ -132,7 +132,7 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if entry.version == 1:
         registry = er.async_get(hass)
 
-        def _patterns_to_entities(raw: Any, platform: str) -> list[str]:
+        def _patterns_to_entities(raw: Any, platforms: tuple[str, ...]) -> list[str]:
             # v1 matched every pattern as a substring of the entity ID.
             # Resolve that once to the entities it matches today, so the
             # effective ignore list does not change for existing users.
@@ -145,17 +145,17 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 reg.entity_id
                 for reg in registry.entities.values()
                 if reg.domain == "update"
-                and reg.platform == platform
+                and reg.platform in platforms
                 and any(p in reg.entity_id.lower() for p in patterns)
             )
 
         def _migrate(cfg: Mapping[str, Any]) -> dict[str, Any]:
             new = dict(cfg)
             new[CONF_IGNORED_ADDONS] = _patterns_to_entities(
-                cfg.get(CONF_IGNORED_ADDONS), PLATFORM_HASSIO
+                cfg.get(CONF_IGNORED_ADDONS), (PLATFORM_HASSIO,)
             )
             new[CONF_IGNORED_HACS] = _patterns_to_entities(
-                cfg.get(CONF_IGNORED_HACS), PLATFORM_HACS
+                cfg.get(CONF_IGNORED_HACS), PLATFORMS_HACS
             )
             schedule = cfg.get(CONF_SCHEDULE_TIME)
             if isinstance(schedule, str) and schedule.count(":") == 1:

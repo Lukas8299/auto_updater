@@ -138,6 +138,9 @@ async def test_migration_v1_to_v2(hass: HomeAssistant) -> None:
     registry.async_get_or_create("update", "hacs", "1", suggested_object_id="mushroom_update")
     registry.async_get_or_create("update", "hacs", "2", suggested_object_id="card_mod_update")
     registry.async_get_or_create(
+        "update", "marketplace", "5", suggested_object_id="mushroom_strategy_update"
+    )
+    registry.async_get_or_create(
         "update", "hassio", "3", suggested_object_id="mosquitto_broker_update"
     )
     registry.async_get_or_create(
@@ -163,7 +166,10 @@ async def test_migration_v1_to_v2(hass: HomeAssistant) -> None:
     await hass.async_block_till_done()
 
     assert entry.version == 2
-    assert entry.data[CONF_IGNORED_HACS] == ["update.mushroom_update"]
+    assert entry.data[CONF_IGNORED_HACS] == [
+        "update.mushroom_strategy_update",
+        "update.mushroom_update",
+    ]
     assert entry.data[CONF_IGNORED_ADDONS] == ["update.mosquitto_broker_update"]
     assert entry.data[CONF_SCHEDULE_TIME] == "03:00:00"
     assert entry.data[CONF_COOLDOWN_DAYS] == 3

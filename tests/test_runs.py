@@ -44,6 +44,17 @@ async def test_waiting_period(
     assert result["status"] == "success"
 
 
+async def test_marketplace_update_is_installed(hass: HomeAssistant, calls: Calls) -> None:
+    """HACS shipped as core integration "marketplace" is handled like HACS."""
+    card = add_update(hass, "mushroom_update", "marketplace", model="plugin")
+    entry = await setup_entry(hass)
+
+    result = await run(entry)
+    assert calls.install == [card]
+    assert result["status"] == "success"
+    assert calls.restart == 0  # plugin, no restart
+
+
 async def test_new_version_restarts_waiting_period(
     hass: HomeAssistant, calls: Calls, freezer: FrozenDateTimeFactory
 ) -> None:
